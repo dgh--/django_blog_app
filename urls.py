@@ -17,6 +17,5 @@ urlpatterns = [
 
     url(r'^(?P<post_pk>[0-9]+)/delete/(?P<comment_pk>[0-9]+)/$', views.delete_comment_view, name = 'delete_comment'),
 
-    url(r'^login/$', views.login_view, name = 'login'),
     url(r'^logout/$', views.logout_view, name = 'logout'),
 ]

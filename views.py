@@ -170,12 +170,6 @@ def delete_comment_view(request, post_pk, comment_pk):
     return HttpResponseRedirect(reverse('blog:post_data', args = (post_pk, )))
 
 
-def login_view(request):
-    """Handles requests to blog:login."""
-
-    return HttpResponseRedirect(reverse('blog:index'))
-
-
 def logout_view(request):
     """Handle requests to blog:logout."""
     logout(request)
