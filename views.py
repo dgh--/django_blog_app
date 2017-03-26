@@ -24,16 +24,7 @@ from .forms import PostForm
 from .forms import CommentForm
 from .forms import UserForm
 
-
-def remove_html(string):
-    """Expurgate HTML from string data."""
-    result = string
-    result = re.sub(
-        '<.*/?>|<.*>.*<.*>',
-        '',
-        result
-    )
-    return result
+from .utilities import remove_html
 
 
 def index_view(request):
