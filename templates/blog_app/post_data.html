@@ -1,0 +1,67 @@
+
+<h1>{{ post.title }}</h1>
+
+<hr/>
+<h3>{{ post.body | safe }}</h3>
+<hr/>
+ 
+<!-- Handle comments for the post -->
+
+<h3>Add A Comment:</h3>
+
+<form method='POST' action='{% url "blog:post_data" post.pk %}'>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>Your Name:</td>
+            <td>{{ form.author }}</td>
+        </tr>
+        <tr><td><br/></td></tr>
+        <tr>
+            <td>Your Comment:</td>
+            <td>{{ form.text }}</td>
+        </tr>        
+    </table>
+    <br/>
+    <button type='submit'>Create Comment</button>
+</form>
+
+<hr/>
+
+<h3>Comments:</h3>
+{% if post.comments.first %}<hr/>{% endif %}
+{% for comment in comments %}
+    <table>
+        <tr>
+            <td><h4>By {{ comment.author }} ---- Created: {{ comment.formatted_time }}</h4></td>
+            {% if request.user.is_authenticated %}
+            <td><h4> ---- <a href='{% url "blog:delete_comment" post.pk comment.pk %}'>Delete</a></h4></td>
+            {% endif %}
+        </tr>
+    </table>
+        {{ comment.text | safe }}
+    <br/><br/>
+{% endfor %}
+
+<hr/>
+
+<div>    
+    <span>
+        {% if comments.has_previous %}
+            <a href='?page={{ comments.previous_page_number }}'>Previous</a>
+        {% endif %}        
+        <span>
+            Page {{ comments.number }} of {{ comments.paginator.num_pages }}
+        </span>
+        {% if comments.has_next %}
+        <a href='?page={{ comments.next_page_number }}'>Next</a>
+        {% endif %}
+    </span>
+</div>
+
+<!-- Handle comments for the post -->
+
+<hr/>
+
+<h4><a href='{% url "blog:index" %}'>Go back to posts</a></h4>
+

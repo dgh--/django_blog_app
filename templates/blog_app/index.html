@@ -1,0 +1,80 @@
+{% if request.user.is_authenticated %}
+<h1>Hello {{ request.user.username }}</h1>
+
+<hr/>
+{% endif %}
+
+<h1>Posts:</h1>
+<hr/>
+
+{% for post in posts %}
+    <table>
+        <tr>
+            <td>
+            <a href='{% url "blog:post_data" post.pk %}'>
+                {{ post.title }} ---- Created: {{ post.formatted_time }}
+            </a>  
+            </td>       
+            {% if request.user.is_authenticated %}  
+            <td>      
+                ----<a href='{% url "blog:delete_post" post.pk %}'> Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+    </table>
+    <br/>
+{% endfor %}
+
+<div>
+    <span>
+        {% if posts.has_previous %}
+            <a href='?page={{ posts.previous_page_number }}'>Previous</a>
+        {% endif %}              
+        <span>
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+        </span>
+        {% if posts.has_next %}
+        <a href='?page={{ posts.next_page_number }}'>Next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% if request.user.is_authenticated %}
+<hr/>
+
+<a href='{% url "blog:create_post" %}'><h2>Create a new post</h2></a>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    <hr/>
+    <a href='{% url "blog:logout" %}'><h3>Logout?</h3></a>
+{% else %}    
+    <hr/>
+    <h3>Login?</h3>
+    <form method='POST' action='{% url "blog:index" %}'>
+        {% csrf_token %}
+        <table>
+            {% if user_form.need_valid_user %}
+            <h4>Not a valid user.</h4>
+            {% endif %}
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    {{ user_form.username }}
+                </td>
+            <tr>
+                <td>
+                    Password: 
+                </td>
+                <td>
+                    {{ user_form.password }}
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <button type='submit'>Login</button>
+    </form>
+    <!--<a href='{% url "blog:login" %}'><h3>Login?</h3></a>-->
+{% endif %}    

@@ -1,0 +1,21 @@
+<h1>Create a new post</h1>
+
+<hr/>
+
+<form method='POST' action='{% url "blog:create_post" %}'>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>Title:</td><td>{{ form.title }}</td>
+        </tr>    
+        <tr>
+            <td>Body:</td><td>{{ form.body }}</td>
+        </tr>        
+    </table>
+    <br/>
+    <button type='submit'>Create</button>
+</form>
+
+<hr/>
+
+<a href='{% url "blog:index" %}'>Go back to posts</a>
