@@ -1,3 +1,4 @@
+import re
 
 
 def remove_html(string):
