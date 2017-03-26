@@ -11,12 +11,6 @@ from .models import Post
 from .utilities import remove_html
 
 
-class PostModelTests(TestCase):
-
-    def setUp(self):
-        Post.objects.create(title = 'Test title.', body = 'Test body.')
-
-
 class CommentModelTests(TestCase):
 
     def setUp(self):
