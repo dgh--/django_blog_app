@@ -42,7 +42,7 @@ class AuthTest(TestCase):
         c = Client()
         c.login(username = 'Testuser', password = 'Testpass1')   
         response = c.get(reverse('blog:index'))
-        print response
+    
         self.assertContains(response, '<h2>Create a new post</h2>')
         self.assertContains(response, '<a href=\'/1/delete_post/\'> Delete</a>')
 
@@ -50,7 +50,7 @@ class AuthTest(TestCase):
         """None users should not be able to create or delete posts."""
         c = Client()
         response = c.get(reverse('blog:index'))
-        print response
+     
         self.assertNotContains(response, '<h2>Create a new post</h2>')
         self.assertNotContains(response, '<a href=\'/1/delete_post/\'> Delete</a>')
 
