@@ -3,16 +3,7 @@ from django.contrib import admin
 from blog_app.models import Post
 from blog_app.models import Comment
 
+admin.site.register(Post)
 
-class PostAdmin(admin.ModelAdmin):
-	pass
-
-
-admin.site.register(Post, PostAdmin)
-
-
-class CommentAdmin(admin.ModelAdmin):
-	pass
-
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Comment)
 
