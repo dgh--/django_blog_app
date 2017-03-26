@@ -27,6 +27,26 @@ from .forms import UserForm
 from .utilities import remove_html
 
 
+"""
+I notice that you're using function based views rather than class based views.
+This is fine; in many respects it's a question of personal preference.
+But it's probably worth learning how to do this with class based views as well;
+they tend to be the default approach for achieving things like this for many
+Django developers these days.
+
+CBVs can become unwieldy, though, if you're trying to get them to do things that
+deviate significantly from what they were originally designed to do; if you just
+want to have a page with a list of posts, then a ListView with most of the default
+settings will probably serve you well. Once you find yourself in a position where
+you want to do something a bit more involved than this they can become quite tricky
+to work with. (IMHO the Django documentation on the subject could be better;
+a useful resource to look at is http://ccbv.co.uk/ - it's a good thing to study
+this to give you an idea of which methods you can override. Still. Can take a while
+to get your head around it. If you prefer this approach, it's fine.) :)
+"""
+
+
+
 def index_view(request):
     """Handle requests to blog:index."""
     post_list = Post.objects.all().order_by('-posted')
